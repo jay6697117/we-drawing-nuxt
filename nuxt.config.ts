@@ -3,6 +3,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
 
+  nitro: {
+    preset: 'vercel-edge'
+  },
+
   content: {
     // Nuxt Content 配置
     documentDrive: true,
