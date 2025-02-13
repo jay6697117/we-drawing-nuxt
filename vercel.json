@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "NITRO_PRESET=vercel-edge npm run build",
+  "buildCommand": "NITRO_PRESET=vercel-edge pnpm build",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "builds": [
     {
       "src": "nuxt.config.ts",
