@@ -1,0 +1,42 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  devtools: { enabled: true },
+  modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
+
+  content: {
+    // Nuxt Content 配置
+    documentDrive: true,
+    markdown: {
+      tags: {
+        h1: 'h1',
+        h2: 'h2'
+      }
+    }
+  },
+
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://we-drawing.com'
+    }
+  },
+
+  app: {
+    head: {
+      title: '每日诗词 AI 画图',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '每天一句中国古诗词，生成 AI 图片'
+        }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ]
+    }
+  },
+
+  compatibilityDate: '2025-02-13'
+})
