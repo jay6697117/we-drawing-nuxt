@@ -39,7 +39,9 @@
     },
     "packageManager": "npm@10.7.0",
     "engines": {
-        "npm": ">=10.x",
-        "node": ">=20.x"
+        "node": "18.x"
+    },
+    "overrides": {
+        "vue": "3.3.8"
     }
 }

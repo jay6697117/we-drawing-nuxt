@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "NITRO_PRESET=vercel pnpm run vercel-build",
-  "installCommand": "corepack enable && pnpm install",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
   "builds": [
     {
       "src": "nuxt.config.ts",
