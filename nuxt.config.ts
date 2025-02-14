@@ -1,6 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { defineNuxtConfig } from 'nuxt/config'
-
 export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
@@ -9,12 +7,7 @@ export default defineNuxtConfig({
     preset: 'vercel'
   },
 
-  typescript: {
-    strict: true,
-    typeCheck: true,
-    shim: false
-  },
-  //@ts-ignore
+  // @ts-ignore
   content: {
     documentDrive: true,
     markdown: {

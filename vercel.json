@@ -1,33 +1,6 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "builds": [
-    {
-      "src": "nuxt.config.ts",
-      "use": "@nuxtjs/vercel-builder"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/sw.js",
-      "continue": true,
-      "headers": {
-        "Cache-Control": "public, max-age=0, must-revalidate"
-      }
-    },
-    {
-      "src": "/_nuxt/(.*)",
-      "headers": {
-        "Cache-Control": "public,max-age=31536000,immutable"
-      }
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
-  ]
+  "framework": "nuxt",
+  "buildCommand": "nuxt build",
+  "devCommand": "nuxt dev",
+  "installCommand": "npm install"
 }

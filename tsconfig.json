@@ -1,33 +1,3 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "skipLibCheck": true,
-        "strict": true,
-        "baseUrl": ".",
-        "paths": {
-            "~/*": ["./*"],
-            "@/*": ["./*"]
-        },
-        "types": ["node", "@nuxt/types", "@nuxt/content/types"],
-        "jsx": "preserve",
-        "allowJs": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noEmit": true
-    },
-    "exclude": ["node_modules", "dist", ".output", ".nuxt"],
-    "include": [
-        "./**/*.ts",
-        "./**/*.tsx",
-        "./**/*.vue",
-        ".nuxt/nuxt.d.ts"
-    ],
-    "ts-node": {
-        "compilerOptions": {
-            "module": "CommonJS"
-        }
-    }
+    "extends": "./.nuxt/tsconfig.json"
 }
