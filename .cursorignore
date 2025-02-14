@@ -1,0 +1,57 @@
+# Nuxt构建输出目录
+.nuxt
+.output
+dist
+
+# 依赖目录
+node_modules
+
+# 环境变量和密钥文件（防止敏感信息泄露）
+.env
+.env.*
+*.pem
+*.key
+
+# 编辑器和IDE配置文件
+.vscode
+.idea
+*.sublime-*
+.vs
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 操作系统生成的文件
+.DS_Store
+Thumbs.db
+
+# 测试覆盖率报告
+coverage
+
+# 临时文件
+*.swp
+*.swo
+.temp
+.tmp
+*.bak
+
+# 本地开发时的缓存文件
+.cache
+.nitro
+.eslintcache
+.stylelintcache
+
+# 构建过程中的临时文件
+.output
+.nuxt
+dist
+.cache
+
+# 其他常见的不需要索引的文件
+*.zip
+*.tar.gz
+*.tgz
