@@ -10,17 +10,24 @@
             "~/*": ["./*"],
             "@/*": ["./*"]
         },
-        "types": ["@types/node", "@nuxt/content", "nuxt"],
+        "types": ["node", "@nuxt/types", "@nuxt/content/types"],
         "jsx": "preserve",
         "allowJs": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "noEmit": true
     },
     "exclude": ["node_modules", "dist", ".output", ".nuxt"],
     "include": [
         "./**/*.ts",
         "./**/*.tsx",
-        "./**/*.vue"
-    ]
+        "./**/*.vue",
+        ".nuxt/nuxt.d.ts"
+    ],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    }
 }

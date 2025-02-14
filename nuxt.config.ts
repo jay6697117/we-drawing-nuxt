@@ -9,7 +9,12 @@ export default defineNuxtConfig({
     preset: 'vercel'
   },
 
-  // @ts-ignore
+  typescript: {
+    strict: true,
+    typeCheck: true,
+    shim: false
+  },
+  //@ts-ignore
   content: {
     documentDrive: true,
     markdown: {
@@ -18,7 +23,7 @@ export default defineNuxtConfig({
         h2: 'h2'
       }
     }
-  } as any,
+  },
 
   runtimeConfig: {
     public: {

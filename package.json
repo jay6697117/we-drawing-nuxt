@@ -24,6 +24,7 @@
         "rss": "1.2.2"
     },
     "devDependencies": {
+        "@nuxt/types": "2.17.2",
         "@nuxtjs/vercel-builder": "0.24.0",
         "@types/node": "18.17.0",
         "@types/rss": "0.0.32",
