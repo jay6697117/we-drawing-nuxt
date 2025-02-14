@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "NITRO_PRESET=vercel pnpm run vercel-build",
-  "installCommand": "pnpm install --no-frozen-lockfile --config.auto-install-peers=true",
+  "installCommand": "corepack enable && pnpm install",
   "builds": [
     {
       "src": "nuxt.config.ts",
