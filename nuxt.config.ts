@@ -6,14 +6,9 @@ export default defineNuxtConfig({
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
 
   nitro: {
-    preset: 'vercel',
-    prerender: {
-      crawlLinks: true,
-      routes: [
-        '/',
-      ]
-    }
+    preset: 'vercel'
   },
+
   // @ts-ignore
   content: {
     documentDrive: true,
@@ -47,7 +42,5 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
-  },
-
-  compatibilityDate: '2025-02-13'
+  }
 })
