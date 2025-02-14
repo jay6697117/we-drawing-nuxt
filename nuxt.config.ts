@@ -1,14 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
 
   nitro: {
-    preset: 'vercel-edge'
+    preset: 'vercel',
+    prerender: {
+      crawlLinks: true,
+      routes: [
+        '/',
+      ]
+    }
   },
-
+  // @ts-ignore
   content: {
-    // Nuxt Content 配置
     documentDrive: true,
     markdown: {
       tags: {
@@ -16,7 +23,7 @@ export default defineNuxtConfig({
         h2: 'h2'
       }
     }
-  },
+  } as any,
 
   runtimeConfig: {
     public: {

@@ -10,7 +10,7 @@
             "~/*": ["./*"],
             "@/*": ["./*"]
         },
-        "types": ["@types/node", "@nuxt/content"],
+        "types": ["@types/node", "@nuxt/content", "nuxt"],
         "jsx": "preserve",
         "allowJs": true,
         "resolveJsonModule": true,
