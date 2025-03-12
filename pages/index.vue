@@ -2,7 +2,12 @@
   <div class="container mx-auto px-4">
     <h1 class="text-4xl font-bold text-center my-8">每日诗词 AI 画图</h1>
     <div class="mb-8">
-      <SearchBar @search="handleSearch" :disabled="isSearching" />
+      <SearchBar
+        ref="searchBarRef"
+        v-model="searchQuery"
+        @search="handleSearch"
+        :disabled="isSearching"
+      />
     </div>
     <div
       v-if="showError"
@@ -11,13 +16,14 @@
       {{ errorMessage }}
       <button
         class="absolute top-0 right-0 px-4 py-3"
-        @click="showError = false"
+        @click="closeError"
       >
         ×
       </button>
     </div>
     <ContentList
       path="/images"
+      :key="contentListKey"
       :query="{
         sort: [{ date: -1 }],
         skip: (currentPage - 1) * pageSize,
@@ -45,7 +51,7 @@
               未找到与"{{ searchQuery }}"相关的诗词
               <button
                 class="text-blue-500 hover:text-blue-600 ml-2"
-                @click="handleSearch('')"
+                @click="handleClearSearch"
               >
                 清除搜索
               </button>
@@ -61,7 +67,7 @@
             :class="[
               page === currentPage ? 'btn-primary' : 'btn-secondary'
             ]"
-            @click="currentPage = page"
+            @click="changePage(page)"
           >
             {{ page }}
           </button>
@@ -96,6 +102,19 @@ const searchQuery = ref('')
 const isSearching = ref(false)
 const showError = ref(false)
 const errorMessage = ref('')
+const contentListKey = ref(0) // 添加一个key来控制列表的重新渲染
+
+// 定义SearchBar组件的接口
+interface SearchBarInstance {
+  focus: () => void;
+}
+
+const searchBarRef = ref<SearchBarInstance | null>(null) // 添加正确的类型定义
+
+// 关闭错误提示
+const closeError = () => {
+  showError.value = false
+}
 
 // 根据搜索查询生成过滤条件
 const getSearchFilter = () => {
@@ -142,13 +161,32 @@ watchEffect(() => {
   }
 })
 
+// 恢复搜索框焦点的函数
+const restoreSearchFocus = () => {
+  // 使用nextTick确保DOM更新后再设置焦点
+  nextTick(() => {
+    if (searchBarRef.value) {
+      searchBarRef.value.focus()
+    }
+  })
+}
+
 // 处理搜索
 const handleSearch = async (query: string) => {
   try {
+    if (query === searchQuery.value && isSearching.value === false) {
+      // 如果搜索词没变且不在搜索中，只需恢复焦点即可
+      restoreSearchFocus()
+      return
+    }
+
     isSearching.value = true
     searchQuery.value = query
     currentPage.value = 1
     showError.value = false
+
+    // 更新ContentList的key以触发重新渲染
+    contentListKey.value++
 
     // 更新总数
     const count = await getTotalCount(query)
@@ -156,6 +194,7 @@ const handleSearch = async (query: string) => {
 
     // 如果搜索结果为空，但不显示错误
     if (count === 0) {
+      restoreSearchFocus()
       return
     }
   } catch (error) {
@@ -164,6 +203,34 @@ const handleSearch = async (query: string) => {
     showError.value = true
   } finally {
     isSearching.value = false
+    // 搜索完成后恢复焦点
+    restoreSearchFocus()
   }
 }
+
+// 清除搜索的处理函数
+const handleClearSearch = () => {
+  searchQuery.value = ''
+  contentListKey.value++
+  handleSearch('')
+}
+
+// 翻页处理函数
+const changePage = (page: number) => {
+  if (currentPage.value !== page) {
+    currentPage.value = page
+    contentListKey.value++
+    // 切换页面后恢复焦点
+    restoreSearchFocus()
+  }
+}
+
+// 在组件挂载后自动设置焦点
+onMounted(() => {
+  nextTick(() => {
+    if (searchBarRef.value) {
+      searchBarRef.value.focus()
+    }
+  })
+})
 </script>
