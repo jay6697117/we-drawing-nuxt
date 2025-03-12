@@ -22,13 +22,7 @@
         sort: [{ date: -1 }],
         skip: (currentPage - 1) * pageSize,
         limit: pageSize,
-        where: searchQuery ? {
-          $or: [
-            { content: { $contains: searchQuery } },
-            { origin: { $contains: searchQuery } },
-            { author: { $contains: searchQuery } }
-          ]
-        } : undefined
+        where: getSearchFilter()
       }"
     >
       <template #default="{ list }">
@@ -103,6 +97,20 @@ const isSearching = ref(false)
 const showError = ref(false)
 const errorMessage = ref('')
 
+// 根据搜索查询生成过滤条件
+const getSearchFilter = () => {
+  if (!searchQuery.value) return undefined
+
+  // 修复查询结构，符合ContentQuery的where类型
+  return {
+    $or: [
+      { content: { $regex: searchQuery.value } },
+      { origin: { $regex: searchQuery.value } },
+      { author: { $regex: searchQuery.value } }
+    ]
+  }
+}
+
 // 获取总数的函数
 const getTotalCount = async (query?: string) => {
   const queryBuilder = queryContent('images')
@@ -110,14 +118,16 @@ const getTotalCount = async (query?: string) => {
   if (query) {
     queryBuilder.where({
       $or: [
-        { content: { $contains: query } },
-        { origin: { $contains: query } },
-        { author: { $contains: query } }
+        { content: { $regex: query } },
+        { origin: { $regex: query } },
+        { author: { $regex: query } }
       ]
     })
   }
 
-  const count = await queryBuilder.count()
+  // 使用正确的方法获取总数
+  const result = await queryBuilder.find()
+  const count = result.length
   console.log('Search query:', query, 'Count:', count)
   return count
 }
